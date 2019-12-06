@@ -1,0 +1,14 @@
+{
+  "name": "aes.js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MrRefactoring/aes.js.git",
+  "license": "MIT",
+  "scripts": {
+    "compile": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^3.7.3"
+  },
+  "dependencies": {}
+}
