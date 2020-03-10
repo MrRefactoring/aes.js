@@ -1,6 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "outDir": "out"
-  }
+    "target": "ES6",
+    "module": "CommonJS",
+    "lib": [
+      "ES2018"
+    ],
+    "outDir": "out",
+    "rootDir": "src",
+    "declaration": true
+  },
+  "exclude": [
+    "test",
+    "node_modules",
+    "out"
+  ]
 }

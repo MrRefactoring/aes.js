@@ -1,14 +1,19 @@
 {
   "name": "aes.js",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "out/index.js",
   "repository": "https://github.com/MrRefactoring/aes.js.git",
   "license": "MIT",
   "scripts": {
-    "compile": "tsc"
+    "compile": "tsc",
+    "test": "jest"
   },
   "devDependencies": {
-    "typescript": "^3.7.3"
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.0",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
   },
   "dependencies": {}
 }
