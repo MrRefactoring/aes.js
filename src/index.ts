@@ -76,7 +76,7 @@ export class AES {
 
     const outputSize = block[0];
 
-    return block.slice(1, outputSize);
+    return block.slice(1, outputSize + 1);
   }
 
   private addRoundKey(state: bytes, roundKey: bytes): bytes {

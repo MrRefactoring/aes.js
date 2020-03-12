@@ -18,10 +18,21 @@ describe('AES test cases', () => {
     expect(Array.isArray(encodedMessage)).toBeTruthy();
   });
 
-  it('should encrypt and decrypt', () => {
+  it('should encrypt and decrypt case 1', () => {
     const aes = new AES(AESUtils.generateKey());
 
     const message = AESUtils.generateKey();
+
+    const encodedMessage = aes.encrypt(message);
+    const decodedMessage = aes.decrypt(encodedMessage);
+
+    expect(decodedMessage).toEqual(message);
+  });
+
+  it('should encrypt and decrypt case 2', () => {
+    const aes = new AES(AESUtils.generateKey());
+
+    const message = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     const encodedMessage = aes.encrypt(message);
     const decodedMessage = aes.decrypt(encodedMessage);
