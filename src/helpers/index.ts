@@ -33,4 +33,17 @@ export namespace Helpers {
 
     return Array.from(invSbox);
   }
+
+  export const generateXTime = () => {
+    const xtime = new Array(256);
+
+    for (let i = 0; i < 128; i++) {
+      xtime[i] = i << 1;
+      xtime[128 + i] = (i << 1) ^ 0x1b;
+    }
+
+    return xtime;
+  };
 }
+
+export * from './chunkDivider';

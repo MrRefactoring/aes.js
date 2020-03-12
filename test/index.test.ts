@@ -7,14 +7,25 @@ describe('AES test cases', () => {
     expect(aes).toBeDefined();
   });
 
-  it('should encode', () => {
+  it('should encrypt calls', () => {
     const aes = new AES(AESUtils.generateKey());
 
     const message = AESUtils.generateKey();
 
-    const encodedMessage = aes.encode(message);
+    const encodedMessage = aes.encrypt(message);
 
     expect(encodedMessage).toBeDefined();
     expect(Array.isArray(encodedMessage)).toBeTruthy();
+  });
+
+  it('should encrypt and decrypt', () => {
+    const aes = new AES(AESUtils.generateKey());
+
+    const message = AESUtils.generateKey();
+
+    const encodedMessage = aes.encrypt(message);
+    const decodedMessage = aes.decrypt(encodedMessage);
+
+    expect(decodedMessage).toEqual(message);
   });
 });
