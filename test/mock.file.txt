@@ -1,0 +1,101 @@
+import { Configuration } from 'webpack-dev-server';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import path from 'path';
+import webpack from 'webpack';
+
+type Environment = 'production' | 'development';
+
+const ENV = process.env.NODE_ENV as Environment;
+
+const config: webpack.Configuration & Configuration = {
+  mode: ENV,
+  target: 'web',
+  entry: {
+    app: './src/index.tsx',
+  },
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'out'),
+    publicPath: '/',
+  },
+  performance: {
+    hints: false
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(ts|tsx)?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader']
+      },
+      {
+        test: /\.css$/,
+        loader: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.(jpg|png)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "[path][name].[hash].[ext]",
+          },
+        },
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/fontwoff'
+      },
+      {
+        test: [/\.js$/, /\.jsx$/],
+        exclude: /node_modules/,
+        loader: 'eslint-loader'
+      }
+
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      alwaysWriteToDisk: true,
+      template: './src/index.html',
+      inject: 'body',
+      hash: true,
+      chunks: ['app'],
+      filename: 'index.html',
+      favicon: './src/assets/favicon.png'
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    }),
+  ],
+  resolve: {
+    alias: {
+      assets: path.resolve(__dirname, './src/assets'),
+      components: path.resolve(__dirname, './src/components'),
+      services: path.resolve(__dirname, './src/services'),
+    },
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
+  }
+};
+
+switch (ENV) {
+  case 'production':
+    config.devtool = false;
+    config.optimization = { minimize: true };
+    break;
+  case 'development':
+    config.devtool = 'source-map';
+    config.watch = true;
+    config.devServer = {
+      port: process.env.PORT as any || 8080,
+      contentBase: './dist',
+      historyApiFallback: true
+    };
+    break;
+}
+
+export default config;
